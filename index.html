@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>★☆ ようこそ！！ YUSUKE's HOMEPAGE ☆★</title>
+<style>
+  /* ===== RESET & BASE ===== */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  /* Custom retro cursor (crosshair on mobile falls back gracefully) */
+  html {
+    cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><text y='28' font-size='28'>👾</text></svg>") 16 16, crosshair;
+  }
+
+  body {
+    background: #000 url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='50' height='50'><rect width='50' height='50' fill='%23000'/><circle cx='25' cy='25' r='1' fill='%23222'/></svg>") repeat;
+    color: #0f0;
+    font-family: 'MS Gothic', 'MS PGothic', monospace;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  a { color: #0ff; text-decoration: none; }
+  a:hover { color: #f0f; text-decoration: underline; }
+
+  /* ===== STARFIELD BACKGROUND ===== */
+  .starfield {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none; z-index: 0;
+    background:
+      radial-gradient(1px 1px at 10% 20%, #fff, transparent),
+      radial-gradient(1px 1px at 30% 60%, #ff0, transparent),
+      radial-gradient(1px 1px at 50% 10%, #0ff, transparent),
+      radial-gradient(1px 1px at 70% 80%, #f0f, transparent),
+      radial-gradient(1px 1px at 90% 40%, #fff, transparent),
+      radial-gradient(1px 1px at 15% 75%, #0f0, transparent),
+      radial-gradient(1px 1px at 60% 45%, #ff0, transparent),
+      radial-gradient(1px 1px at 85% 15%, #fff, transparent);
+    animation: twinkle 3s ease-in-out infinite alternate;
+  }
+  @keyframes twinkle { 0% { opacity: 0.4; } 100% { opacity: 1; } }
+
+  /* ===== CONTAINER ===== */
+  .container {
+    position: relative; z-index: 1;
+    max-width: 900px; margin: 0 auto; padding: 10px;
+  }
+
+  /* ===== MARQUEE BANNER ===== */
+  .marquee-top {
+    background: linear-gradient(90deg, #f00, #ff0, #0f0, #0ff, #00f, #f0f, #f00);
+    background-size: 400% 100%;
+    animation: rainbowBg 3s linear infinite;
+    color: #fff;
+    font-size: clamp(12px, 3vw, 18px);
+    font-weight: bold;
+    padding: 6px 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-shadow: 2px 2px #000;
+  }
+  .marquee-top .scroll-text {
+    display: inline-block;
+    animation: marqueeScroll 15s linear infinite;
+  }
+  @keyframes marqueeScroll {
+    0% { transform: translateX(100vw); }
+    100% { transform: translateX(-100%); }
+  }
+  @keyframes rainbowBg {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 400% 50%; }
+  }
+
+  /* ===== TITLE ===== */
+  .title-area {
+    text-align: center;
+    padding: 20px 10px;
+  }
+  .title-area h1 {
+    font-size: clamp(24px, 6vw, 48px);
+    background: linear-gradient(180deg, #ff0, #f80, #f00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: none;
+    filter: drop-shadow(2px 2px 0 #000);
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+  .title-area .subtitle {
+    color: #0ff;
+    font-size: clamp(10px, 2.5vw, 16px);
+    animation: blink 1s step-end infinite;
+    margin-top: 8px;
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  /* ===== UNDER CONSTRUCTION GIF AREA ===== */
+  .construction {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding: 10px;
+  }
+  .construction .bar {
+    height: 20px;
+    flex: 1;
+    min-width: 60px;
+    background: repeating-linear-gradient(
+      45deg, #ff0, #ff0 10px, #000 10px, #000 20px
+    );
+    animation: moveStripes 0.5s linear infinite;
+  }
+  @keyframes moveStripes {
+    0% { background-position: 0 0; }
+    100% { background-position: 28px 0; }
+  }
+  .construction span {
+    color: #ff0;
+    font-size: clamp(10px, 2vw, 14px);
+    white-space: nowrap;
+    animation: blink 0.8s step-end infinite;
+  }
+
+  /* ===== PORTAL LINKS ===== */
+  .portal {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    padding: 20px 10px;
+  }
+  .portal-card {
+    border: 2px solid #0f0;
+    border-radius: 0;
+    background: rgba(0, 20, 0, 0.8);
+    padding: 15px;
+    text-align: center;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .portal-card::before {
+    content: '';
+    position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0,255,0,0.1), transparent);
+    animation: scanline 2s linear infinite;
+  }
+  @keyframes scanline {
+    0% { left: -100%; }
+    100% { left: 100%; }
+  }
+  .portal-card:hover {
+    border-color: #f0f;
+    box-shadow: 0 0 20px #f0f, inset 0 0 20px rgba(255,0,255,0.1);
+    transform: scale(1.03);
+  }
+  .portal-card .icon {
+    font-size: 40px;
+    display: block;
+    margin-bottom: 8px;
+  }
+  .portal-card h2 {
+    font-size: clamp(14px, 3vw, 18px);
+    color: #0f0;
+    margin-bottom: 5px;
+  }
+  .portal-card p {
+    color: #0a0;
+    font-size: clamp(10px, 2vw, 12px);
+  }
+
+  /* ===== VISITOR COUNTER (fake retro) ===== */
+  .counter-area {
+    text-align: center;
+    padding: 15px;
+    color: #888;
+    font-size: clamp(10px, 2vw, 13px);
+  }
+  .counter {
+    display: inline-block;
+    background: #111;
+    border: 1px inset #444;
+    padding: 3px 10px;
+    color: #0f0;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 2px;
+  }
+
+  /* ===== GUESTBOOK / INFO SECTION ===== */
+  .info-box {
+    border: 1px dashed #0f0;
+    margin: 15px 10px;
+    padding: 15px;
+    font-size: clamp(11px, 2.5vw, 14px);
+    line-height: 1.8;
+    color: #0c0;
+  }
+  .info-box h3 {
+    color: #ff0;
+    margin-bottom: 8px;
+    font-size: clamp(13px, 3vw, 16px);
+  }
+
+  /* ===== SCROLLING BOTTOM MARQUEE ===== */
+  .marquee-bottom {
+    background: #111;
+    border-top: 1px solid #333;
+    border-bottom: 1px solid #333;
+    padding: 5px 0;
+    overflow: hidden;
+    white-space: nowrap;
+    color: #f80;
+    font-size: clamp(10px, 2vw, 13px);
+  }
+  .marquee-bottom .scroll-text {
+    display: inline-block;
+    animation: marqueeScroll 20s linear infinite;
+  }
+
+  /* ===== BGM PLAYER ===== */
+  .bgm-player {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    z-index: 999;
+    background: rgba(0,0,0,0.9);
+    border: 1px solid #0f0;
+    padding: 8px 12px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: #0f0;
+  }
+  .bgm-player button {
+    background: #0f0;
+    color: #000;
+    border: none;
+    padding: 4px 10px;
+    cursor: pointer;
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 12px;
+  }
+  .bgm-player button:hover {
+    background: #0ff;
+  }
+
+  /* ===== FLOATING GIF DECORATIONS ===== */
+  .floating-deco {
+    position: fixed;
+    pointer-events: none;
+    z-index: 0;
+    animation: floatAround 8s ease-in-out infinite alternate;
+    font-size: 30px;
+  }
+  .floating-deco:nth-child(1) { top: 10%; left: 5%; animation-duration: 7s; }
+  .floating-deco:nth-child(2) { top: 60%; right: 5%; animation-duration: 9s; animation-delay: -3s; }
+  .floating-deco:nth-child(3) { bottom: 20%; left: 10%; animation-duration: 6s; animation-delay: -1s; }
+  @keyframes floatAround {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    100% { transform: translate(20px, -20px) rotate(15deg); }
+  }
+
+  /* ===== RAINBOW DIVIDER ===== */
+  .rainbow-hr {
+    height: 4px;
+    background: linear-gradient(90deg, #f00, #ff0, #0f0, #0ff, #00f, #f0f, #f00);
+    background-size: 200% 100%;
+    animation: rainbowBg 2s linear infinite;
+    border: none;
+    margin: 15px 0;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 600px) {
+    .portal {
+      grid-template-columns: 1fr;
+    }
+    .floating-deco {
+      display: none; /* hide on small screens to reduce clutter */
+    }
+    .bgm-player {
+      bottom: 5px;
+      right: 5px;
+      font-size: 10px;
+      padding: 5px 8px;
+    }
+  }
+
+  /* ===== SPARKLE TRAIL (mouse follow on desktop) ===== */
+  .sparkle {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    font-size: 16px;
+    animation: sparkleAnim 0.8s ease-out forwards;
+  }
+  @keyframes sparkleAnim {
+    0% { opacity: 1; transform: scale(1) translateY(0); }
+    100% { opacity: 0; transform: scale(0.3) translateY(-30px); }
+  }
+</style>
+</head>
+<body>
+
+<!-- Floating emoji decorations -->
+<div class="floating-deco">🌀</div>
+<div class="floating-deco">👾</div>
+<div class="floating-deco">🔥</div>
+
+<!-- Starfield -->
+<div class="starfield"></div>
+
+<div class="container">
+
+  <!-- Top Marquee -->
+  <div class="marquee-top">
+    <span class="scroll-text">
+      ★★★ ようこそ YUSUKE's HOMEPAGE へ！！ ★★★　ここは画像・映像・音楽なんでもありのカオス空間です　★★★　WELCOME TO MY CHAOTIC WORLD　★★★　🔥🔥🔥
+    </span>
+  </div>
+
+  <!-- Title -->
+  <div class="title-area">
+    <h1>⚡ YUSUKE's HOMEPAGE ⚡</h1>
+    <p class="subtitle">＿人人人人人人人人人＿<br>＞　いらっしゃいませ　＜<br>￣Y^Y^Y^Y^Y^Y^Y^Y￣</p>
+  </div>
+
+  <!-- Under Construction -->
+  <div class="construction">
+    <div class="bar"></div>
+    <span>🚧 UNDER CONSTRUCTION 🚧</span>
+    <div class="bar"></div>
+  </div>
+
+  <hr class="rainbow-hr">
+
+  <!-- Portal Cards -->
+  <div class="portal">
+    <a href="gallery.html" class="portal-card">
+      <span class="icon">🖼️</span>
+      <h2>GALLERY</h2>
+      <p>画像・イラスト・写真</p>
+    </a>
+    <a href="gallery.html#video" class="portal-card">
+      <span class="icon">🎬</span>
+      <h2>MOVIE</h2>
+      <p>映像・動画作品</p>
+    </a>
+    <a href="gallery.html#music" class="portal-card">
+      <span class="icon">🎵</span>
+      <h2>MUSIC</h2>
+      <p>音楽・サウンド</p>
+    </a>
+    <a href="gallery.html#misc" class="portal-card">
+      <span class="icon">🌀</span>
+      <h2>MISC</h2>
+      <p>その他なんでも</p>
+    </a>
+  </div>
+
+  <hr class="rainbow-hr">
+
+  <!-- Info Box -->
+  <div class="info-box">
+    <h3>📝 このサイトについて</h3>
+    <p>
+      ここは YUSUKE が作ったものをぼんぼん投げ込む場所です。<br>
+      画像、映像、音楽、その他もろもろ。<br>
+      ジャンル不問、クオリティ不問、とにかく作ったら載せる。<br>
+      <br>
+      <span style="color:#f80;">最終更新：</span> <span id="lastUpdate"></span>
+    </p>
+  </div>
+
+  <!-- Visitor Counter -->
+  <div class="counter-area">
+    あなたは <span class="counter" id="visitorCount">000000</span> 人目の訪問者です！！
+  </div>
+
+  <hr class="rainbow-hr">
+
+  <!-- Bottom Marquee -->
+  <div class="marquee-bottom">
+    <span class="scroll-text">
+      ♪♪♪ このサイトはリンクフリーです ♪♪♪　直リンはご遠慮ください　♪♪♪　since 2026　♪♪♪　best viewed with any browser　♪♪♪　解像度1024x768推奨（嘘）　♪♪♪
+    </span>
+  </div>
+
+  <!-- Footer -->
+  <div style="text-align:center; padding:20px; color:#555; font-size:11px;">
+    <p>© 2026 YUSUKE's HOMEPAGE - All Rights Reserved(?)</p>
+    <p style="margin-top:5px;">
+      <a href="mailto:">📧 MAIL</a> ｜
+      <a href="#">🔗 LINK</a> ｜
+      <a href="#">📖 BBS</a>
+    </p>
+  </div>
+
+</div>
+
+<!-- BGM Player (Web Audio API - chiptune-like) -->
+<div class="bgm-player">
+  <span>♪ BGM</span>
+  <button id="bgmBtn" onclick="toggleBGM()">PLAY</button>
+</div>
+
+<script>
+// === Visitor Counter (fake, localStorage-based) ===
+(function() {
+  let count = parseInt(localStorage.getItem('yusuke_visitors') || '0') + 1;
+  localStorage.setItem('yusuke_visitors', count);
+  document.getElementById('visitorCount').textContent = String(count).padStart(6, '0');
+})();
+
+// === Last Update Date ===
+document.getElementById('lastUpdate').textContent = new Date().toLocaleDateString('ja-JP');
+
+// === Sparkle Trail (desktop only) ===
+if (window.matchMedia('(pointer: fine)').matches) {
+  const sparkles = ['✨', '⭐', '💫', '🌟', '✦'];
+  let lastSparkle = 0;
+  document.addEventListener('mousemove', function(e) {
+    const now = Date.now();
+    if (now - lastSparkle < 80) return;
+    lastSparkle = now;
+    const el = document.createElement('div');
+    el.className = 'sparkle';
+    el.textContent = sparkles[Math.floor(Math.random() * sparkles.length)];
+    el.style.left = e.clientX + 'px';
+    el.style.top = e.clientY + 'px';
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 800);
+  });
+}
+
+// === BGM (Web Audio API chiptune) ===
+let audioCtx = null;
+let bgmPlaying = false;
+let bgmOscillators = [];
+
+function toggleBGM() {
+  if (!bgmPlaying) {
+    startBGM();
+    document.getElementById('bgmBtn').textContent = 'STOP';
+  } else {
+    stopBGM();
+    document.getElementById('bgmBtn').textContent = 'PLAY';
+  }
+  bgmPlaying = !bgmPlaying;
+}
+
+function startBGM() {
+  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  const masterGain = audioCtx.createGain();
+  masterGain.gain.value = 0.15;
+  masterGain.connect(audioCtx.destination);
+
+  // Simple chiptune melody loop
+  const melody = [
+    262, 330, 392, 523, 392, 330, 262, 294,
+    330, 392, 440, 392, 330, 294, 262, 262,
+    349, 440, 523, 440, 349, 294, 330, 392,
+    349, 330, 294, 262, 330, 294, 262, 196
+  ];
+  const noteLength = 0.2;
+  const totalTime = melody.length * noteLength;
+
+  function playLoop(startTime) {
+    melody.forEach((freq, i) => {
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'square';
+      osc.frequency.value = freq;
+      gain.gain.setValueAtTime(0.3, startTime + i * noteLength);
+      gain.gain.exponentialRampToValueAtTime(0.01, startTime + (i + 0.8) * noteLength);
+      osc.connect(gain);
+      gain.connect(masterGain);
+      osc.start(startTime + i * noteLength);
+      osc.stop(startTime + (i + 1) * noteLength);
+      bgmOscillators.push(osc);
+    });
+  }
+
+  // Loop the melody
+  function scheduleLoops() {
+    const now = audioCtx.currentTime;
+    for (let loop = 0; loop < 50; loop++) {
+      playLoop(now + loop * totalTime);
+    }
+  }
+  scheduleLoops();
+}
+
+function stopBGM() {
+  if (audioCtx) {
+    audioCtx.close();
+    audioCtx = null;
+  }
+  bgmOscillators = [];
+}
+</script>
+
+</body>
+</html>
